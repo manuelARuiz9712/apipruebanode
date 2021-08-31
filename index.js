@@ -9,10 +9,11 @@ const express = require("express");
 const RutasBasicas = require("./rutas/basicRouter");
 const PrestadoresRutas = require("./rutas/PrestadoresRouter");
 const SolicitantesRutas = require("./rutas/solicitantesRouter");
-
+var cors = require('cors')
 
 const app = express();
 
+app.use(cors())
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 

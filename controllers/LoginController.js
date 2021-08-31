@@ -74,7 +74,7 @@ async Registro(){
         razonSocial:this.req.body.razonSocial,
         rol:this.req.body.rol
     };
-   // console.log("Params",params);
+    console.log("Params",params);
     let InstanceUsuarios = new Usuarios();
 
 
@@ -113,7 +113,7 @@ async Registro(){
         clave:this.req.body.clave
     };
     let InstanceUsuarios = new Usuarios();
-
+    console.log({params});
     if( params.usuario === undefined || params.clave === undefined ){
 
         return this.res.status(500).json("Algunos parametros no fueron enviados");

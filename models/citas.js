@@ -60,15 +60,15 @@ async ObtenerCitasCreadas(usuarioId){
  */
 async ObtenerCitasDisponibles(usuarioId){
 
-    let queryIdsPrestadores = conexion
+/*     let queryIdsPrestadores = conexion
     .table("solicitantes_prestadores")
     .where("cod_usuario_solicitante",usuarioId)
-    .select("cod_usuario_prestador")
+    .select("cod_usuario_prestador") */
 
     return  await conexion.table("citas")
-    .join("usuarios","citas.cod_usuario_prestador","=","usuarios.cod")
+    .join("usuarios","citas.cod_usuario_prestador","=","usuarios.id")
      .where("cupos_disponibles",">",0)
-    .whereIn("cod_usuario_prestador",queryIdsPrestadores)
+    //.whereIn("cod_usuario_prestador",queryIdsPrestadores)
      .select("citas.*","usuarios.usuario");
  
  

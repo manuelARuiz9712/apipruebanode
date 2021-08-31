@@ -14,7 +14,7 @@ module.exports = function(req,res,next){
             let tokenDecoded = jwt.verify(bearerToken,process.env.KEY_JWT);
            
             //Rol prestador y ambos;
-            if( tokenDecoded.cod_rol === 1 || tokenDecoded.cod_rol === 3   ){
+            if( tokenDecoded.cod_rol === 1 || tokenDecoded.cod_rol === 2   ){
                 req.user = tokenDecoded;
                 next();
 

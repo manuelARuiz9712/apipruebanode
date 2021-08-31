@@ -41,23 +41,23 @@ async  ObtenerPrestadores(){
 
           let usuarioResult = await  conexion.table("usuarios")
             .where("usuario",usuario)
-            .where("clave",clave).select("usuario","razon_social","cod").first();
+            .where("clave",clave).select("usuario","razon_social","id","rol").first();
 
 
          if( usuarioResult != null ){
 
-            let rol = await conexion.table("usuarios_roles")
+/*             let rol = await conexion.table("usuarios_roles")
             //.join("roles","usuarios_roles.cod_rol","=","roles.cod")
-            .where("cod_usuario",usuarioResult.cod)
-            .select("cod_rol").first();
+            .where("cod_usuario",usuarioResult.id)
+            .select("cod_rol").first(); */
 
            
            // console.log("Type of",typeof usuarioResult,process.env.KEY_JWT );
-            let usuarioData={
+            let usuarioData = {
                 usuario:usuarioResult.usuario,
                 razonSocial: usuarioResult.razon_social,
-                codigoUsuario:usuarioResult.cod,
-                codRol:rol.cod_rol
+                codigoUsuario:usuarioResult.id,
+                cod_rol:usuarioResult.rol
             };
             let tokenSesion =  jwt.sign(usuarioData, process.env.KEY_JWT);
             usuarioData.token = tokenSesion;
@@ -99,7 +99,7 @@ return new Promise( async resolve=>{
    
 
     let consUsuario = await conexion.table(this.tableName ).where("usuario",usuario).first();
-    let ExistRol = await conexion.table("roles").where("cod",rol).first();
+    let ExistRol = await conexion.table("roles").where("rol_id",rol).first();
 
     if( ExistRol === undefined ){
 
@@ -121,7 +121,8 @@ return new Promise( async resolve=>{
         .insert({
             usuario,
             clave,
-            razon_social:razonsocial
+            razon_social:razonsocial,
+            rol
         });
 
         await  conexion.table("usuarios_roles").insert({
